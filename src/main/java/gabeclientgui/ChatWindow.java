@@ -56,7 +56,7 @@ public class ChatWindow{
 
         
         //----------------------------
-        icom  = new MocCommunication();//RedisCom();
+        icom  = new RedisCom(messages); //MocCommunication();
         //----------------------------
         icom.connect(address);
         

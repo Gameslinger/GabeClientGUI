@@ -34,7 +34,7 @@ public class GabeClientGUI extends Application {
         next.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent ae){
-            ChatWindow cw = new ChatWindow(name.getText(),next.getText());
+            ChatWindow cw = new ChatWindow(name.getText(),addText.getText());
            Scene chatScene = cw.createChatWindow();
             primaryStage.setScene(chatScene);
             
