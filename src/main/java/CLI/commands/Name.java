@@ -25,7 +25,11 @@ public class Name implements ICommand{
 
     @Override
     public String response(String[] args) {
-        nm.setName(args[1]);
+        String name = "";
+        for(int i = 1; i < args.length; i++){
+            name+= args[i]+" ";
+        }
+        nm.setName(name.substring(0,name.length()-1));
         return "";
     }
 
