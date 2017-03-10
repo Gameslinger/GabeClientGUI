@@ -6,6 +6,7 @@
 package gabeclientgui;
 
 import CLI.CLI;
+import CLI.Nameable;
 import Communication.ICommunication;
 import Communication.MocCommunication;
 import Communication.RedisCom;
@@ -27,10 +28,12 @@ import javafx.scene.input.MouseEvent;
  *
  * @author Gabe
  */
-public class ChatWindow{
+public class ChatWindow implements Nameable{
     ICommunication icom;
     String sendText;
     TextField input;
+    
+    String name;
     
     CLI cli;
     
@@ -56,7 +59,7 @@ public class ChatWindow{
 
         
         //----------------------------
-        icom  = new RedisCom(messages); //MocCommunication();
+        icom  = new RedisCom(this,messages); //MocCommunication();
         //----------------------------
         icom.connect(address);
         
@@ -83,7 +86,7 @@ public class ChatWindow{
                 
                 
                 
-                messages.getItems().add(cli.getUserName()+"> "+sendText);
+                messages.getItems().add(cli.getName()+"> "+sendText);
                 messages.scrollTo(messages.getItems().size()-1);
                 }
                 
@@ -104,11 +107,6 @@ public class ChatWindow{
     }
     
     public Scene createChatWindow(){
-        //Create new communication with address....
-        //----
-       // HBox hb = new HBox();
-        //|
-        //|
         input.requestFocus();
         
         VBox vb = new VBox();
@@ -117,5 +115,14 @@ public class ChatWindow{
         
         return new Scene(vb,600,300,Color.WHITE);
         
+    }
+
+    @Override
+    public void setName(String name) {
+    
+    }
+    @Override
+    public String getName(){
+       return cli.getName();
     }
 }

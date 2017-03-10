@@ -28,7 +28,7 @@ public class GabeClientGUI extends Application {
         welcome = new Label("Welcome to Gabe Client!");
         namePrompt = new Label("Please enter your username:");
         addMess = new Label("Please input the address you are connecting to:");
-        addText = new TextField("localhost");
+        addText = new TextField("cygnusx1.apa.rocks");
         name = new TextField("Guest");
         next = new Button("Connect");
         next.setOnAction(new EventHandler<ActionEvent>(){

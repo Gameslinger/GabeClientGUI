@@ -155,7 +155,7 @@ public class CLI implements Nameable{
         this.userName = newName;
     }
 
-    public String getUserName() {
+    public String getName() {
         return userName;
     }
 

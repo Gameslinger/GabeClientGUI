@@ -5,43 +5,47 @@
  */
 package Communication;
 
+import CLI.Nameable;
+import gabeclientgui.ChatWindow;
 import javafx.scene.control.ListView;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPubSub;
+import world.drj.drjclass.client.jedis.JedisClient;
 
 /**
  *
  * @author Gabe
  */
 public class RedisCom implements ICommunication{
-    Jedis jd;
-    ListView<String> messages;
+    final ListView<String> messages;
+    JedisClient client;
+    Nameable name;
+    String myLastMessage = "";
     //SubThread subThread;
-    public RedisCom(ListView<String> messages){
+    public RedisCom(Nameable name, ListView<String> messages){
         this.messages = messages;
+        this.name = name;
     }
     @Override
     public void connect(String address) {
         System.out.println("-"+address+"-");
-        jd = new Jedis(address);
-        
-        new SubThread(jd,new JedisPubSub(){
-        @Override
-	public void onMessage(String channel, String message) {
-            messages.getItems().add(message);
-	}
-    }).run();
+        client = new JedisClient(address,"msg");
+        client.observe().subscribe(
+            s->{
+                if(s.equals(myLastMessage))return;
+            System.out.println("Message recieved: "+s);
+            messages.getItems().add(s);
+        });
+      
     }
 
     @Override
     public void send(String msg) {
-        jd.set("msg",msg);
+        myLastMessage = name.getName()+"> "+msg;
+        client.send(myLastMessage);
     }
 
     @Override
     public String recieve() {
-        return jd.get("msg");
-           
+        return "";
     }
     
  
