@@ -25,9 +25,9 @@ public class RedisCom implements ICommunication{
         this.name = name;
     }
     @Override
-    public void connect(String address) {
+    public void connect(String address,String channel) {
         System.out.println("-"+address+"-");
-        client = new JedisClient(address,"msg");
+        client = new JedisClient(address,channel);
         client.observe().subscribe(
             s->{
                 if(s.equals(myLastMessage))return;

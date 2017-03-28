@@ -46,6 +46,7 @@ public class CLI implements Nameable{
          commands.add(new RandomString());
          commands.add(new AtBash());
          commands.add(new Clear(cw));
+         commands.add(new Local(this,cw));
          
          for(ICommand com : commands){
              for(int i = 0; i < com.getKeys().length; i++){

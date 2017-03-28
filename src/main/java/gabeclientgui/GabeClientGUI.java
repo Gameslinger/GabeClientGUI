@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  */
 public class GabeClientGUI extends Application {
     Label welcome,addMess,namePrompt;
-    TextField addText,name;
+    TextField addText,name,channel;
     Button next;
     @Override
     public void start(final Stage primaryStage) {
@@ -29,19 +29,20 @@ public class GabeClientGUI extends Application {
         namePrompt = new Label("Please enter your username:");
         addMess = new Label("Please input the address you are connecting to:");
         addText = new TextField("cygnusx1.apa.rocks");
+        channel = new TextField("msg");
         name = new TextField("Guest");
         next = new Button("Connect");
         next.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent ae){
-            ChatWindow cw = new ChatWindow(name.getText(),addText.getText());
+            ChatWindow cw = new ChatWindow(name.getText(),addText.getText(),channel.getText());
            Scene chatScene = cw.createChatWindow();
             primaryStage.setScene(chatScene);
             
             }});
         
         VBox root = new VBox();
-        root.getChildren().addAll(welcome,namePrompt,name,addMess,addText,next);
+        root.getChildren().addAll(welcome,namePrompt,name,addMess,addText,channel,next);
         
         Scene scene = new Scene(root, 300, 250);
         

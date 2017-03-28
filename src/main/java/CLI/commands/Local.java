@@ -6,38 +6,39 @@
 package CLI.commands;
 
 import CLI.CLI;
+import gabeclientgui.ChatWindow;
 
 /**
  *
  * @author Gabriel.Maxfield
  */
-public class Help implements ICommand {
+public class Local implements ICommand{
     CLI cli;
-    
-    public Help(CLI cli){
+    ChatWindow cw;
+    public Local(CLI cli,ChatWindow cw){
         this.cli = cli;
+        this.cw = cw;
     }
     @Override
     public String getName() {
-        return "Help";
+    return "Local Send";
     }
 
     @Override
     public String response(String[] args) {
-        String result="!l ";
-        for(ICommand command : cli.commands){
-            String keys="";
-            for(int i = 0; i < command.getKeys().length; i++){
-                keys+=command.getKeys()[i]+", ";
-            }
-            result += ("Name: "+command.getName()+", Keys: "+keys+"\n");
+        //Echo string and not return anything to print!
+        String result = "";
+        for(int i = 1; i < args.length; i++){
+            result+= args[i]+" ";
         }
-        return result;
+        cw.messages.getItems().add(result);
+        
+        return "";
     }
 
     @Override
     public String[] getKeys() {
-        return new String[] {"h","help"};
+        return new String[]{"local","l"};
     }
     
 }

@@ -11,7 +11,7 @@ package Communication;
  */
 
 public interface ICommunication {
-    public void connect(String address);
+    public void connect(String address, String channel);
     public void send(String msg);
     public String recieve();
 }

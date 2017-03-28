@@ -41,7 +41,7 @@ public class ChatWindow implements Nameable{
     int index = 0;
     String messText;
     public ListView<String> messages;
-    ChatWindow(String name, final String address){
+    ChatWindow(String name, final String address, final String channel){
         cli = new CLI(this);
         cli.setName(name);
         messages = new ListView();
@@ -61,7 +61,7 @@ public class ChatWindow implements Nameable{
         //----------------------------
         icom  = new RedisCom(this,messages); //MocCommunication();
         //----------------------------
-        icom.connect(address);
+        icom.connect(address,channel);
         
         
         input = new TextField();

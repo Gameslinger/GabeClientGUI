@@ -12,7 +12,7 @@ package Communication;
 public class MocCommunication implements ICommunication{
 
     @Override
-    public void connect(String address) {
+    public void connect(String address,String channel) {
         System.out.println("Connecting to server!");
         System.out.println("Connected!");
         //Success?
