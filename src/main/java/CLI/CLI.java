@@ -47,6 +47,7 @@ public class CLI implements Nameable{
          commands.add(new AtBash());
          commands.add(new Clear(cw));
          commands.add(new Local(this,cw));
+         commands.add(new Channel(cw));
          
          for(ICommand com : commands){
              for(int i = 0; i < com.getKeys().length; i++){
@@ -156,6 +157,7 @@ public class CLI implements Nameable{
         this.userName = newName;
     }
 
+    @Override
     public String getName() {
         return userName;
     }

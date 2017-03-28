@@ -10,12 +10,13 @@ package Communication;
  * @author Gabe
  */
 public class MocCommunication implements ICommunication{
-
+    String address;
     @Override
     public void connect(String address,String channel) {
         System.out.println("Connecting to server!");
         System.out.println("Connected!");
         //Success?
+        this.address = address;
     }
 
     @Override
@@ -30,6 +31,11 @@ public class MocCommunication implements ICommunication{
             return "Hello!";
         }
         return null;
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
     }
 
 }

@@ -6,7 +6,6 @@
 package Communication;
 
 import CLI.Nameable;
-import gabeclientgui.ChatWindow;
 import javafx.scene.control.ListView;
 import world.drj.drjclass.client.jedis.JedisClient;
 
@@ -18,7 +17,7 @@ public class RedisCom implements ICommunication{
     final ListView<String> messages;
     JedisClient client;
     Nameable name;
-    String myLastMessage = "";
+    String myLastMessage = "",address;
     //SubThread subThread;
     public RedisCom(Nameable name, ListView<String> messages){
         this.messages = messages;
@@ -26,6 +25,7 @@ public class RedisCom implements ICommunication{
     }
     @Override
     public void connect(String address,String channel) {
+        this.address = address;
         System.out.println("-"+address+"-");
         client = new JedisClient(address,channel);
         client.observe().subscribe(
@@ -46,6 +46,10 @@ public class RedisCom implements ICommunication{
     @Override
     public String recieve() {
         return "";
+    }
+
+    public String getAddress() {
+        return address;
     }
     
  

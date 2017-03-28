@@ -125,4 +125,13 @@ public class ChatWindow implements Nameable{
     public String getName(){
        return cli.getName();
     }
+
+    public void setIcom(ICommunication icom) {
+        this.icom = icom;
+    }
+
+    public ICommunication getIcom() {
+        return icom;
+    }
+    
 }
