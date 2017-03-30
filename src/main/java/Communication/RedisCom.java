@@ -6,6 +6,8 @@
 package Communication;
 
 import CLI.Nameable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import javafx.scene.control.ListView;
 import world.drj.drjclass.client.jedis.JedisClient;
 
@@ -28,7 +30,7 @@ public class RedisCom implements ICommunication{
         this.address = address;
         System.out.println("-"+address+"-");
         client = new JedisClient(address,channel);
-        client.observe().subscribe(
+        client.observe().subscribeOn(Schedulers.io()).observeOn(JavaFxScheduler.platform()).subscribe(
             s->{
                 if(s.equals(myLastMessage))return;
             System.out.println("Message recieved: "+s);

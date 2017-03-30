@@ -5,7 +5,6 @@
  */
 package CLI.commands;
 
-import Communication.RedisCom;
 import gabeclientgui.ChatWindow;
 
 /**

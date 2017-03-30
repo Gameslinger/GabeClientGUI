@@ -8,7 +8,6 @@ package gabeclientgui;
 import CLI.CLI;
 import CLI.Nameable;
 import Communication.ICommunication;
-import Communication.MocCommunication;
 import Communication.RedisCom;
 import java.util.ArrayList;
 import java.util.List;
