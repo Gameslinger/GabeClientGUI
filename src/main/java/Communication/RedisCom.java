@@ -19,7 +19,8 @@ public class RedisCom implements ICommunication{
     final ListView<String> messages;
     JedisClient client;
     Nameable name;
-    String myLastMessage = "",address;
+    String lastMessage = "",address;
+    int spamDuration = 0;
     //SubThread subThread;
     public RedisCom(Nameable name, ListView<String> messages){
         this.messages = messages;
@@ -30,10 +31,17 @@ public class RedisCom implements ICommunication{
         this.address = address;
         System.out.println("-"+address+"-");
         client = new JedisClient(address,channel);
-        client.observe().subscribeOn(Schedulers.io()).observeOn(JavaFxScheduler.platform()).subscribe(
-            s->{
-                if(s.equals(myLastMessage))return;
+        client.observe().subscribeOn(Schedulers.io()).observeOn(JavaFxScheduler.platform()).subscribe(s->{
+                if(s.equals(lastMessage)){
+                    spamDuration++;
+                    return;
+                }
             System.out.println("Message recieved: "+s);
+            if(spamDuration > 1){
+            messages.getItems().add("Blocked spam: "+spamDuration);
+            spamDuration = 0;
+            }
+            lastMessage = s;
             messages.getItems().add(s);
         });
       
@@ -41,15 +49,15 @@ public class RedisCom implements ICommunication{
 
     @Override
     public void send(String msg) {
-        myLastMessage = name.getName()+"> "+msg;
-        client.send(myLastMessage);
+        lastMessage = name.getName()+"> "+msg;
+        client.send(lastMessage);
     }
 
     @Override
     public String recieve() {
         return "";
     }
-
+    @Override
     public String getAddress() {
         return address;
     }

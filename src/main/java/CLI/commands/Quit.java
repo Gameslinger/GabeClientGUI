@@ -26,7 +26,7 @@ public class Quit implements ICommand{
 
     @Override
     public String[] getKeys() {
-        return new String[]{"q","quit","e","exit"};
+        return new String[]{"q","quit","exit"};
     }
     
 }

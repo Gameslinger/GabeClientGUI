@@ -5,6 +5,7 @@
  */
 package CLI.commands.SpamThread;
 
+import CLI.CLI;
 import Communication.ICommunication;
 
 
@@ -16,16 +17,25 @@ public class SpamThread implements Runnable{
     String message;
     int times;
     ICommunication icom;
-    public SpamThread(int times,String message, ICommunication icom){
+    long delay;
+    CLI cli;
+    public SpamThread(int times,long delay,String message, ICommunication icom,CLI cli){
         this.times = times;
         this.message = message;
         this.icom = icom;
+        this.delay = delay;
+        this.cli = cli;
     }
     
     @Override
     public void run() {
     while(times-->0){
-           icom.send(message);
+           icom.send(cli.scanString2(message));
+           try{
+               Thread.sleep(delay);
+           }catch(Exception e){
+               //Poo...
+           }
          }
     }
     

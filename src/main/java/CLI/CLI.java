@@ -48,7 +48,8 @@ public class CLI implements Nameable{
          commands.add(new Clear(cw));
          commands.add(new Local(this,cw));
          commands.add(new Channel(cw));
-         commands.add(new Spam(cw));
+         commands.add(new Spam(cw,this));
+         commands.add(new LyricLookup());
          
          for(ICommand com : commands){
              for(int i = 0; i < com.getKeys().length; i++){
@@ -63,6 +64,7 @@ public class CLI implements Nameable{
         }catch(Exception e){
            //e.printStackTrace();
             cw.messages.getItems().add("Improper Input");
+            e.printStackTrace();
             return "";
             //return("Improper Input");
         }
@@ -107,6 +109,7 @@ public class CLI implements Nameable{
         String tokens[] = str.split(" ");
         for(int i = tokens.length-1; i >= 0; i--){
         if(tokens[i].isEmpty())return str;
+        
             if(tokens[i].charAt(0)==cmdChar){
                 if(tokens[i].charAt(1)==cmdChar){
                     skip=true;
@@ -140,7 +143,8 @@ public class CLI implements Nameable{
             }
         }
         if(skip){
-            return (str).replace(" "+cmdChar+cmdChar, " ");
+            //return (str).replace(" "+cmdChar+cmdChar, " ");
+            return comMap.get(tokens[0].substring(1)).response(tokens);
         }
       
         //Local Message

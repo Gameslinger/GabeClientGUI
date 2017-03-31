@@ -19,11 +19,13 @@ public class RandomString implements ICommand{
     @Override
     public String response(String[] args) {
         int length = Integer.parseInt(args[1]);
-        int range = Integer.parseInt(args[2]);
+       // int range = Integer.parseInt(args[3]);
+        int min = Integer.parseInt(args[2]);
+        int range = Integer.parseInt(args[3]) - min;
         String result = "";
         //Construct String:
         for(int i = 0; i < length; i++){
-            result+=(char)(int)(Math.random()*range);
+            result+=(char)(int)(Math.random()*range+min);
         }
         return result;
     }
