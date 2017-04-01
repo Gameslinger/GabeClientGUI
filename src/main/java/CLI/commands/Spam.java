@@ -6,7 +6,7 @@
 package CLI.commands;
 
 import CLI.CLI;
-import CLI.commands.SpamThread.SpamThread;
+import CLI.commands.Threads.SpamThread;
 import gabeclientgui.ChatWindow;
 
 /**

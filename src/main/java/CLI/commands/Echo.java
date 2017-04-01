@@ -23,7 +23,7 @@ public class Echo implements ICommand{
             result+=args[i]+" ";
         }
         System.out.println(result);
-        return result;
+        return "!l "+result;
     }
 
     @Override
