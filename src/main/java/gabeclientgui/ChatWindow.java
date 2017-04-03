@@ -8,6 +8,8 @@ package gabeclientgui;
 import CLI.CLI;
 import CLI.Nameable;
 import Communication.ICommunication;
+import Communication.JsCommunication;
+import Communication.MocCommunication;
 import Communication.RedisCom;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class ChatWindow implements Nameable{
     int index = 0;
     String messText;
     public ListView<String> messages;
-    ChatWindow(String name, final String address, final String channel){
+    ChatWindow(String name, final String address, final String channel,boolean useMock){
         cli = new CLI(this);
         cli.setName(name);
         messages = new ListView();
@@ -58,7 +60,8 @@ public class ChatWindow implements Nameable{
 
         
         //----------------------------
-        icom  = new RedisCom(this,messages); //MocCommunication();
+        
+        icom  = useMock ? new MocCommunication() : new RedisCom(this,messages); //MocCommunication();
         //----------------------------
         icom.connect(address,channel);
         

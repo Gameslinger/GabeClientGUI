@@ -13,7 +13,7 @@ public class Reverse implements ICommand{
 
     @Override
     public String getName() {
-        return "reverse";
+        return "Reverse";
     }
 
 
