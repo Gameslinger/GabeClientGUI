@@ -9,7 +9,7 @@ package Communication;
  *
  * @author Gabe
  */
-public class MocCommunication implements ICommunication{
+public class MockCom implements ICommunication{
     String address;
     @Override
     public void connect(String address,String channel) {

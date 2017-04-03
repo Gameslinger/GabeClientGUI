@@ -8,14 +8,15 @@ package gabeclientgui;
 import CLI.CLI;
 import CLI.Nameable;
 import Communication.ICommunication;
-import Communication.JsCommunication;
-import Communication.MocCommunication;
+import Communication.JsCom;
+import Communication.MockCom;
 import Communication.RedisCom;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +25,7 @@ import javafx.scene.paint.Color;
 
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 /**
  *
@@ -34,6 +36,11 @@ public class ChatWindow implements Nameable{
     String sendText;
     TextField input;
     
+    ComEnum comOp;
+    
+    TextArea sendCode,recCode;
+    HBox codeAreas;
+    
     String name;
     
     CLI cli;
@@ -42,7 +49,7 @@ public class ChatWindow implements Nameable{
     int index = 0;
     String messText;
     public ListView<String> messages;
-    ChatWindow(String name, final String address, final String channel,boolean useMock){
+    ChatWindow(String name, final String address, final String channel,ComEnum comOp){
         cli = new CLI(this);
         cli.setName(name);
         messages = new ListView();
@@ -58,10 +65,26 @@ public class ChatWindow implements Nameable{
         }}
         });
 
-        
+        this.comOp = comOp;
         //----------------------------
-        
-        icom  = useMock ? new MocCommunication() : new RedisCom(this,messages); //MocCommunication();
+        switch(comOp){
+            case RedisCom:
+                icom = new RedisCom(this,messages);
+                break;
+            case MockCom:
+                icom = new MockCom();
+                break;
+            case JsCom:
+                sendCode = new TextArea("//Put onSend Javascript code here\nclient.send(msg);");
+                recCode = new TextArea("//Put onRecieve Javascript code in here\nmessages.getItems().add(msg);");
+                codeAreas = new HBox();
+                codeAreas.getChildren().addAll(sendCode,recCode);
+                icom = new JsCom(this,messages,sendCode,recCode);
+                
+                break;
+            default:
+                System.out.println("Illegal Toggle!");
+        }
         //----------------------------
         icom.connect(address,channel);
         
@@ -112,8 +135,11 @@ public class ChatWindow implements Nameable{
         input.requestFocus();
         
         VBox vb = new VBox();
+        if(comOp==ComEnum.JsCom){
+            vb.getChildren().addAll(messages,codeAreas,input);
+        }else{
         vb.getChildren().addAll(messages,input);
-        
+        }
         
         return new Scene(vb,600,300,Color.WHITE);
         

@@ -9,6 +9,7 @@ import CLI.Nameable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -18,15 +19,20 @@ import world.drj.drjclass.client.jedis.JedisClient;
  *
  * @author Gabe
  */
-public class JsCommunication implements ICommunication{
+public class JsCom implements ICommunication{
 final ListView<String> messages;
     JedisClient client;
     Nameable name;
     String lastMessage = "",address;
     int spamDuration = 0;
     ScriptEngine eng;
+    
+    TextArea sendCode,recCode;
+    
     //SubThread subThread;
-    public JsCommunication(Nameable name, ListView<String> messages){
+    public JsCom(Nameable name,ListView<String> messages,TextArea sendCode,TextArea recCode){
+        this.sendCode = sendCode;
+        this.recCode = recCode;
         this.messages = messages;
         this.name = name;
         eng = new ScriptEngineManager().getEngineByName("nashorn");
@@ -41,19 +47,17 @@ final ListView<String> messages;
         eng.put("client", client);
         eng.put("messages", messages);
         client.observe().subscribeOn(Schedulers.io()).observeOn(JavaFxScheduler.platform()).subscribe(s->{
-                eng.eval(method);
+                eng.put("msg", s);
+                eng.eval(recCode.getText());
         });
       
     }
     @Override
     public void send(String msg) {
-        if(msg.charAt(0)=='.'){
-            method = msg.substring(1);
-            return;
-        }
         eng.put("msg", msg);
+        eng.put("name", name);
     try {
-        eng.eval(method);
+        eng.eval(sendCode.getText());
     } catch (ScriptException ex) {
         ex.printStackTrace();
     }
