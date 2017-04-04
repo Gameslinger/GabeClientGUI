@@ -45,22 +45,26 @@ final ListView<String> messages;
         System.out.println("-"+address+"-");
         client = new JedisClient(address,channel);
         eng.put("client", client);
-        eng.put("messages", messages);
+        eng.put("messages", messages.getItems());
+        eng.put("self",this);
         client.observe().subscribeOn(Schedulers.io()).observeOn(JavaFxScheduler.platform()).subscribe(s->{
+                eng.put("lastMessage",lastMessage);
                 eng.put("msg", s);
                 eng.eval(recCode.getText());
+                //lastMessage = s;
         });
       
     }
     @Override
     public void send(String msg) {
         eng.put("msg", msg);
-        eng.put("name", name);
+        eng.put("name", name.getName());
     try {
         eng.eval(sendCode.getText());
     } catch (ScriptException ex) {
         ex.printStackTrace();
     }
+    //lastMessage = msg;
     }
 
     @Override
@@ -71,5 +75,7 @@ final ListView<String> messages;
     public String getAddress() {
         return address;
     }
-    
+    public void setLastMessage(String msg){
+        this.lastMessage = msg;
+    }
 }

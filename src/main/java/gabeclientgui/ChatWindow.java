@@ -75,8 +75,8 @@ public class ChatWindow implements Nameable{
                 icom = new MockCom();
                 break;
             case JsCom:
-                sendCode = new TextArea("//Put onSend Javascript code here\nclient.send(msg);");
-                recCode = new TextArea("//Put onRecieve Javascript code in here\nmessages.getItems().add(msg);");
+                sendCode = new TextArea("//Put onSend Javascript code here\nclient.send(name+'>'+msg);");
+                recCode = new TextArea("//Put onRecieve Javascript code in here\nmessages.add(msg);");
                 codeAreas = new HBox();
                 codeAreas.getChildren().addAll(sendCode,recCode);
                 icom = new JsCom(this,messages,sendCode,recCode);
