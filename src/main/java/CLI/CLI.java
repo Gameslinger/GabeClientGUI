@@ -50,6 +50,7 @@ public class CLI implements Nameable{
          commands.add(new Channel(cw));
          commands.add(new Spam(cw,this));
          commands.add(new LyricLookup());
+         commands.add(new Replace());
          
          for(ICommand com : commands){
              for(int i = 0; i < com.getKeys().length; i++){
