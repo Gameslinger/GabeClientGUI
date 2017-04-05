@@ -19,11 +19,12 @@ public class Replace implements ICommand{
     @Override
     public String response(String[] args) {
     String result = "";
-    for(int i = 3; i < args.length; i++){
+    for(int i = 1; i < args.length; i++){
         result+=args[i];
         if(i<args.length-1)result+=" ";
     }
-        return result.replaceAll(args[1], args[2]);
+        String parts[] = result.split("~");
+        return parts[2].replaceAll(parts[0], parts[1]);
     }
 
     @Override
