@@ -18,6 +18,7 @@ public class RandomString implements ICommand{
 
     @Override
     public String response(String[] args) {
+        if(args.length < 3) return "!l Improper Input";
         int length = Integer.parseInt(args[1]);
        // int range = Integer.parseInt(args[3]);
         int min = Integer.parseInt(args[2]);

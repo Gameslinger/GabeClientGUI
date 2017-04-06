@@ -18,31 +18,32 @@ public class SpamThread implements Runnable{
     int times;
     ICommunication icom;
     long delay;
-    CommandList cli;
+    CommandList cl;
     /**
      * Constructs a SpamThread to Spam chat
      * @param times
      * @param delay
      * @param message
      * @param icom
-     * @param cli 
+     * @param cl 
      */
-    public SpamThread(int times,long delay,String message, ICommunication icom,CommandList cli){
+    public SpamThread(int times,long delay,String message, ICommunication icom,CommandList cl){
         this.times = times;
         this.message = message;
         this.icom = icom;
         this.delay = delay;
-        this.cli = cli;
+        this.cl = cl;
     }
     
     @Override
     public void run() {
     while(times-->0){
-           icom.send(cli.scanString(message));
+           icom.send(cl.scanString(message));
            try{
                Thread.sleep(delay);
            }catch(Exception e){
                //Poo...
+               e.printStackTrace();
            }
          }
     }
