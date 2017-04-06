@@ -30,5 +30,8 @@ public class FractionCmd implements ICommand{
     public String[] getKeys() {
         return new String[]{"f","frac","fraction"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Fraction calculator ex !f 1/2+(3*2_7/8)";
+    }
 }

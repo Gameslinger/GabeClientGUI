@@ -33,5 +33,8 @@ public class Reverse implements ICommand{
     public String[] getKeys() {
         return new String[]{"r","reverse"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Reverses arguments ex !r Hello World";
+    }
 }

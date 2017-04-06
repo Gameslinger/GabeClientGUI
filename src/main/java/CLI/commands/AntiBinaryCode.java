@@ -29,5 +29,8 @@ public class AntiBinaryCode implements ICommand{
     public String[] getKeys() {
         return new String[]{"abc","antibinary"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Reverses Binary Code ex: !abc !bc Hello World";
+    }
 }

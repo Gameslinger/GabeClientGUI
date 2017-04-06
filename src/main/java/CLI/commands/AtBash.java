@@ -39,5 +39,8 @@ public class AtBash implements ICommand{
     public String[] getKeys() {
         return new String[]{"ab","atbash"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "AtBash code ex: !ab Hello World";
+    }
 }

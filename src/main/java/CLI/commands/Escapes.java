@@ -31,5 +31,8 @@ public class Escapes implements ICommand{
     public String[] getKeys() {
         return new String[] {"es","escapes"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Replaces escape codes with real character ex New Line\\\\n, Back space\\\\b,Tab\\\\t";
+    }
 }

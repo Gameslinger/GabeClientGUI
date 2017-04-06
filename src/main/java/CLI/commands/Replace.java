@@ -31,5 +31,8 @@ public class Replace implements ICommand{
     public String[] getKeys() {
     return new String[]{"rep","replace"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Match string with regex and replace(seperate args with tilde ~) ex !rep find~replace~find in text";
+    }
 }

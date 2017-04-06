@@ -13,6 +13,7 @@ public interface ICommand {
     public String getName();
     public String response(String[] args);
     public String[] getKeys();
+    public String getHelp();
     //public String getHelp();
     
 }

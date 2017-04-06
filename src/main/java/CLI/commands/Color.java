@@ -75,5 +75,8 @@ public class Color implements ICommand {
     public String[] getKeys() {
         return new String[] {"c","color"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Chat colors(does not work in GUI) ex !c %bThe %rColors %yduke%g!";
+    }
 }

@@ -31,5 +31,8 @@ public class Channel implements ICommand{
     public String[] getKeys() {
         return new String[]{"sc","SetChannel"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Change Redis Channel ex: !sc cool";
+    }
 }

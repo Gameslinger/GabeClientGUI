@@ -28,5 +28,8 @@ public class Quit implements ICommand{
     public String[] getKeys() {
         return new String[]{"q","quit","exit"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Closes client ex !q";
+    }
 }

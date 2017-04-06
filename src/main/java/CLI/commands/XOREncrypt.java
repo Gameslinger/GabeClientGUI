@@ -32,5 +32,8 @@ public class XOREncrypt implements ICommand {
     public String[] getKeys() {
         return new String[]{"xe","xor"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "XOR encrypts args with key ex !xe 15 Hello World";
+    }
 }

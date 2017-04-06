@@ -50,5 +50,8 @@ public class MorseCode implements ICommand {
     public String[] getKeys() {
         return new String[]{"mc"};
     }
-
+    @Override
+    public String getHelp(){
+        return "Morse Code ex !mc hello world";
+    }
 }

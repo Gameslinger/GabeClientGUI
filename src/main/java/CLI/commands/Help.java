@@ -24,6 +24,9 @@ public class Help implements ICommand {
 
     @Override
     public String response(String[] args) {
+        if(args.length>1){
+            return "!l "+cli.comMap.get(args[1]).getHelp()+" !!";
+        }
         String result="!l ";
         for(ICommand command : cli.commands){
             String keys="";
@@ -39,5 +42,8 @@ public class Help implements ICommand {
     public String[] getKeys() {
         return new String[] {"h","help"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Prints info on commands ex !help [command]";
+    }
 }

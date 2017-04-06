@@ -37,5 +37,8 @@ public class Name implements ICommand{
     public String[] getKeys() {
         return new String[]{"n","name"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Sets username ex !n John Cena";
+    }
 }

@@ -113,6 +113,7 @@ public class CLI implements Nameable{
         
             if(tokens[i].charAt(0)==cmdChar){
                 if(tokens[i].charAt(1)==cmdChar){
+                    tokens[i]="";
                     skip=true;
                     break;
                 }
@@ -125,7 +126,7 @@ public class CLI implements Nameable{
                                 args+=tokens[e]+" ";
                             }
 
-                    return scanString2(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)).replaceAll(" "+cmdChar, "("+cmdChar+")"));
+                    return scanString2(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)));
                     
                 }
                 
@@ -144,7 +145,7 @@ public class CLI implements Nameable{
             }
         }
         if(skip){
-            //return (str).replace(" "+cmdChar+cmdChar, " ");
+           // System.out.println(comMap.get(tokens[0].substring(1)).response(tokens));
             return comMap.get(tokens[0].substring(1)).response(tokens);
         }
       

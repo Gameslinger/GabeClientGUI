@@ -34,5 +34,8 @@ public class BinaryCode implements ICommand{
     public String[] getKeys() {
         return new String[]{"bc","binary"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Binary Code ex: !bc Hello World";
+    }
 }

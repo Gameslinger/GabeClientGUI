@@ -63,5 +63,8 @@ public class AntiMorseCode implements ICommand{
     public String[] getKeys() {
         return new String[]{"amc","antimorse"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Reverses Morse Code ex: !amc !mc Hello World";
+    }
 }

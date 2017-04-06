@@ -34,5 +34,8 @@ public class Clear implements ICommand{
     public String[] getKeys() {
         return new String[]{"cl","clear"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Clears chat ex !cl";
+    }
 }

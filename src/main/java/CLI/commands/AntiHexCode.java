@@ -29,5 +29,8 @@ public class AntiHexCode implements ICommand{
     public String[] getKeys() {
         return new String[]{"ahc","antihex"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Reverses Hex Code ex: !ahc !hc Hello World";
+    }
 }

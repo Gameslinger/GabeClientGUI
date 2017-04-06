@@ -32,5 +32,8 @@ public class ShiftEncrypt implements ICommand {
     public String[] getKeys() {
         return new String[]{"se","shift"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Moves characters over by amount(int) ex !se 10 Hello World";
+    }
 }

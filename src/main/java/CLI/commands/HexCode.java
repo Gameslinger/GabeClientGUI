@@ -33,5 +33,8 @@ public class HexCode implements ICommand{
     public String[] getKeys() {
         return new String[]{"hc","hex"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Hex Code ex !hc Hello World";
+    }
 }

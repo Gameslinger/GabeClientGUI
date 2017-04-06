@@ -41,7 +41,10 @@ public class Spam implements ICommand{
     public String[] getKeys() {
     return new String[]{"spam","sp"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Spams Chat with times and delay ex !sp 10(amount) 1000(delay ms) Hello World";
+    }
 }
 
 

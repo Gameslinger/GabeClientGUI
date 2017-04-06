@@ -78,5 +78,10 @@ public class LyricLookup implements ICommand{
     public String[] getKeys() {
         return new String[]{"llu","lyrics"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Looks up lyrics on azlyrics (put songs as one word and only\n"
+                + " alphabetic/numeric characters) ex !llu sevennationarmy whitestripes\n"
+                + "ex !llu search [song]";
+    }
 }

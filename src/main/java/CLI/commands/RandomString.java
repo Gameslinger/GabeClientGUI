@@ -34,5 +34,9 @@ public class RandomString implements ICommand{
     public String[] getKeys() {
         return new String[]{"rs","randstring"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Generates a random string (range is ascii number values)\n"
+                + " ex !rs [beginning of range] [end of range] [length]";
+    }
 }

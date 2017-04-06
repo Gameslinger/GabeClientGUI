@@ -31,5 +31,8 @@ public class Echo implements ICommand{
         return new String[]{"e","echo"};
         
     }
-    
+    @Override
+    public String getHelp(){
+        return "Repeats message locally ex !e Hello World";
+    }
 }

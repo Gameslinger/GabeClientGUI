@@ -40,5 +40,8 @@ public class Local implements ICommand{
     public String[] getKeys() {
         return new String[]{"local","l"};
     }
-    
+    @Override
+    public String getHelp(){
+        return "Prints commands locally ex !l";
+    }
 }
