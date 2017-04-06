@@ -5,15 +5,15 @@
  */
 package CLI.commands;
 
-import gabeclientgui.ChatWindow;
+import Communication.Chat;
 
 /**
  *
  * @author Gabriel.Maxfield
  */
 public class Channel implements ICommand{
-    ChatWindow cw;
-    public Channel(ChatWindow cw){
+    Chat cw;
+    public Channel(Chat cw){
         this.cw = cw;
     }
     @Override
@@ -23,7 +23,7 @@ public class Channel implements ICommand{
 
     @Override
     public String response(String[] args) {
-        cw.getIcom().connect(cw.getIcom().getAddress(), args[1]);
+        cw.getCom().connect(cw.getAddress(), args[1]);
         return "";
     }
 

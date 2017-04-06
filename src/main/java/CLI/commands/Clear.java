@@ -5,17 +5,16 @@
  */
 package CLI.commands;
 
-import CLI.CLI;
-import gabeclientgui.ChatWindow;
+import CLI.MessageList;
 
 /**
  *
  * @author Gabe
  */
 public class Clear implements ICommand{
-    ChatWindow cw;
-    public Clear(ChatWindow cw) {
-        this.cw = cw;
+    MessageList messageList;
+    public Clear(MessageList cw) {
+        this.messageList = cw;
     }
     
     @Override
@@ -25,7 +24,7 @@ public class Clear implements ICommand{
 
     @Override
     public String response(String[] args) {
-       cw.messages.getItems().clear();
+       messageList.getMessages().clear();
        
        return ""; 
     }

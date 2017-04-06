@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gabeclientgui;
+package Communication;
 
 /**
  *
  * @author Gabe
  */
-public enum ComEnum {
-    RedisCom,JsCom,MockCom;
+public interface Communicateable {
+    public ICommunication getCom();
 }

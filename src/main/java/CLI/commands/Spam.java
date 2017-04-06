@@ -5,20 +5,20 @@
  */
 package CLI.commands;
 
-import CLI.CLI;
+import CLI.CommandList;
 import CLI.commands.Threads.SpamThread;
-import gabeclientgui.ChatWindow;
+import Communication.Chat;
 
 /**
  *
  * @author Gabe
  */
 public class Spam implements ICommand{
-    ChatWindow cw;
-    CLI cli;
-    public Spam(ChatWindow cw,CLI cli){
-        this.cw = cw;
-        this.cli = cli;
+    Chat chat;
+    CommandList cl;
+    public Spam(Chat chat,CommandList cl){
+        this.chat = chat;
+        this.cl = cl;
     }
     @Override
     public String getName() {
@@ -33,7 +33,7 @@ public class Spam implements ICommand{
             if(i<args.length+1) message.append(' ');
         }
         
-        new Thread(new SpamThread(Integer.parseInt(args[1]),Long.parseLong(args[2]),message.toString(),cw.getIcom(),cli)).start();
+        new Thread(new SpamThread(Integer.parseInt(args[1]),Long.parseLong(args[2]),message.toString(),chat.getCom(),cl)).start();
         return "";
     }
 

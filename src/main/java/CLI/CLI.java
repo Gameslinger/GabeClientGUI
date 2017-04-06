@@ -6,7 +6,7 @@
 package CLI;
 
 import CLI.commands.*;
-import gabeclientgui.ChatWindow;
+import Communication.Chat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,16 +17,16 @@ import java.util.Scanner;
 /**
  * @author Gabriel.Maxfield
  */
-public class CLI implements Nameable{
+public class CLI implements Nameable,CommandList{
     public  List<String> list = new ArrayList();
     public  Map<String,ICommand> comMap = new HashMap();
     public  List<ICommand> commands = new ArrayList();
-    ChatWindow cw;
+    MessageList messageList;
     String userName = "Root";
     Scanner scanner = new Scanner(System.in);
     public char cmdChar = '!';
-    public CLI(ChatWindow cw){
-        this.cw = cw;
+    public CLI(Chat cw){
+        this.messageList = cw;
          commands.add(new Echo());
          commands.add(new Reverse());
          commands.add(new Quit());
@@ -46,7 +46,7 @@ public class CLI implements Nameable{
          commands.add(new RandomString());
          commands.add(new AtBash());
          commands.add(new Clear(cw));
-         commands.add(new Local(this,cw));
+         commands.add(new Local(messageList));
          commands.add(new Channel(cw));
          commands.add(new Spam(cw,this));
          commands.add(new LyricLookup());
@@ -61,10 +61,10 @@ public class CLI implements Nameable{
 }
     public String processString(String line){
         try{
-            return scanString2(line);
+            return scanString(line);
         }catch(Exception e){
            //e.printStackTrace();
-            cw.messages.getItems().add("Improper Input");
+            messageList.getMessages().add("Improper Input");
             e.printStackTrace();
             return "";
             //return("Improper Input");
@@ -89,7 +89,7 @@ public class CLI implements Nameable{
 //                    cmd = comMap.get(test);
 //                            
 //
-//                    return scanString2(args+cmd.response(str.split(" ")).replaceAll(" "+cmdChar, "("+cmdChar+")"));
+//                    return scanString(args+cmd.response(str.split(" ")).replaceAll(" "+cmdChar, "("+cmdChar+")"));
 //                    
 //                }
 //            
@@ -105,7 +105,8 @@ public class CLI implements Nameable{
 //        
 //        return str;
 //    } 
-    public String scanString2(String str){
+     @Override
+    public String scanString(String str){
         boolean skip=false, found = false;
         String tokens[] = str.split(" ");
         for(int i = tokens.length-1; i >= 0; i--){
@@ -126,7 +127,7 @@ public class CLI implements Nameable{
                                 args+=tokens[e]+" ";
                             }
 
-                    return scanString2(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)));
+                    return scanString(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)));
                     
                 }
                 
@@ -138,7 +139,7 @@ public class CLI implements Nameable{
 //                                args+=tokens[e]+" ";
 //                            }
 //                            
-//                            return scanString2(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)).replaceAll(" "+cmdChar, "("+cmdChar+")"));
+//                            return scanString(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)).replaceAll(" "+cmdChar, "("+cmdChar+")"));
 //                        }
 //                    }
 //                }
@@ -151,7 +152,7 @@ public class CLI implements Nameable{
       
         //Local Message
         if(found){
-            cw.messages.getItems().add("Command not found");
+            messageList.getMessages().add("Command not found");
             return "";
         }
         //Send message:
@@ -167,6 +168,16 @@ public class CLI implements Nameable{
     @Override
     public String getName() {
         return userName;
+    }
+
+    @Override
+    public Map<String, ICommand> getMap() {
+        return comMap;
+    }
+
+    @Override
+    public List<ICommand> getList() {
+        return commands;
     }
 
    

@@ -6,16 +6,17 @@
 package CLI.commands;
 
 import CLI.CLI;
+import CLI.CommandList;
 
 /**
  *
  * @author Gabriel.Maxfield
  */
 public class Help implements ICommand {
-    CLI cli;
+    CommandList commandList;
     
-    public Help(CLI cli){
-        this.cli = cli;
+    public Help(CommandList cli){
+        this.commandList = cli;
     }
     @Override
     public String getName() {
@@ -25,10 +26,10 @@ public class Help implements ICommand {
     @Override
     public String response(String[] args) {
         if(args.length>1){
-            return "!l "+cli.comMap.get(args[1]).getHelp()+" !!";
+            return "!l "+commandList.getMap().get(args[1]).getHelp()+" !!";
         }
         String result="!l ";
-        for(ICommand command : cli.commands){
+        for(ICommand command : commandList.getList()){
             String keys="";
             for(int i = 0; i < command.getKeys().length; i++){
                 keys+=command.getKeys()[i]+", ";

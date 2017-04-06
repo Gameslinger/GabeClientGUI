@@ -5,18 +5,16 @@
  */
 package CLI.commands;
 
-import CLI.CLI;
-import gabeclientgui.ChatWindow;
+import CLI.MessageList;
+import ClientGUI.ChatWindow;
 
 /**
  *
  * @author Gabriel.Maxfield
  */
 public class Local implements ICommand{
-    CLI cli;
-    ChatWindow cw;
-    public Local(CLI cli,ChatWindow cw){
-        this.cli = cli;
+    MessageList cw;
+    public Local(MessageList cw){
         this.cw = cw;
     }
     @Override
@@ -31,7 +29,7 @@ public class Local implements ICommand{
         for(int i = 1; i < args.length; i++){
             result+= args[i]+" ";
         }
-        cw.messages.getItems().add(result);
+        cw.getMessages().add(result);
         
         return "";
     }

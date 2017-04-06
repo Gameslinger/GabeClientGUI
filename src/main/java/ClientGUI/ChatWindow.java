@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gabeclientgui;
+package ClientGUI;
 
 import CLI.CLI;
+import CLI.MessageList;
 import CLI.Nameable;
+import Communication.Chat;
 import Communication.ICommunication;
 import Communication.JsCom;
 import Communication.MockCom;
 import Communication.RedisCom;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -22,16 +25,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
  *
  * @author Gabe
  */
-public class ChatWindow implements Nameable{
+public class ChatWindow extends Chat implements Nameable, MessageList{
     ICommunication icom;
     String sendText;
     TextField input;
@@ -49,20 +49,18 @@ public class ChatWindow implements Nameable{
     int index = 0;
     String messText;
     public ListView<String> messages;
-    ChatWindow(String name, final String address, final String channel,ComEnum comOp){
+    ChatWindow(String name,final String address, final String channel,ComEnum comOp){
+        this.setAddress(address);
         cli = new CLI(this);
         cli.setName(name);
         messages = new ListView();
         
-        messages.setOnMouseClicked(new EventHandler<MouseEvent>(){
- 
-          @Override
-          public void handle(MouseEvent click) {
+        messages.setOnMouseClicked(click-> {
             if (click.getClickCount() == 2) {
-            messText = messages.getSelectionModel().getSelectedItem();
-            if(messText!=null)
-           input.setText(input.getText()+messText);
-        }}
+                messText = messages.getSelectionModel().getSelectedItem();
+                if(messText!=null)
+                    input.setText(input.getText()+messText);
+            }
         });
 
         this.comOp = comOp;
@@ -161,5 +159,16 @@ public class ChatWindow implements Nameable{
     public ICommunication getIcom() {
         return icom;
     }
+
+    @Override
+    public ObservableList<String> getMessages() {
+        return messages.getItems();
+    }
+
+    @Override
+    public ICommunication getCom() {
+        return icom;
+    }
+
     
 }
