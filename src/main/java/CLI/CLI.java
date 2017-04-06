@@ -53,9 +53,9 @@ public class CLI implements Nameable,CommandList{
          commands.add(new Replace());
          
          for(ICommand com : commands){
-             for(int i = 0; i < com.getKeys().length; i++){
-                 comMap.put(com.getKeys()[i], com);
-             }
+            for (String key : com.getKeys()) {
+                comMap.put(key, com);
+            }
          }
          
 }
@@ -78,33 +78,7 @@ public class CLI implements Nameable,CommandList{
     
     ICommand cmd;
      String test;
-//    public String scanString(String str){
-//        String[] keys;
-//        if(str.charAt(0)==cmdChar){
-//            String tokens[] = str.substring(1).split(" ");
-//            
-//            test = tokens[0].substring(1).toLowerCase();
-//                if(comMap.containsKey(test)){
-//                    String args = "";
-//                    cmd = comMap.get(test);
-//                            
-//
-//                    return scanString(args+cmd.response(str.split(" ")).replaceAll(" "+cmdChar, "("+cmdChar+")"));
-//                    
-//                }
-//            
-////            for(ICommand command : commands){
-////                    keys = command.getKeys();
-////                    for(int e = 0; e < keys.length; e++){
-////                        if(keys[e].equals(tokens[0].toLowerCase())){
-////                            return command.response(tokens);
-////                        }
-////                    }
-////                }
-//            }
-//        
-//        return str;
-//    } 
+
      @Override
     public String scanString(String str){
         boolean skip=false, found = false;
@@ -131,22 +105,9 @@ public class CLI implements Nameable,CommandList{
                     
                 }
                 
-//                for(ICommand cmd : CLI.commands){
-//                    for(String key : cmd.getKeys()){
-//                        if(key.equals(tokens[i].substring(1).toLowerCase())){
-//                            String args = "";
-//                            for(int e = 0; e < i; e++){
-//                                args+=tokens[e]+" ";
-//                            }
-//                            
-//                            return scanString(args+cmd.response(Arrays.copyOfRange(tokens, i, tokens.length)).replaceAll(" "+cmdChar, "("+cmdChar+")"));
-//                        }
-//                    }
-//                }
             }
         }
         if(skip){
-           // System.out.println(comMap.get(tokens[0].substring(1)).response(tokens));
             return comMap.get(tokens[0].substring(1)).response(tokens);
         }
       
@@ -179,9 +140,5 @@ public class CLI implements Nameable,CommandList{
     public List<ICommand> getList() {
         return commands;
     }
-
-   
-    
-    
     
 }

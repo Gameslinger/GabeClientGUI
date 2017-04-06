@@ -12,5 +12,9 @@ import javafx.collections.ObservableList;
  * @author Gabe
  */
 public interface MessageList {
+    /**
+     * Returns list of messages
+     * @return 
+     */
     public ObservableList<String> getMessages();
 }

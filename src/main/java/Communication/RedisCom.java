@@ -52,11 +52,6 @@ public class RedisCom implements ICommunication{
         lastMessage = name.getName()+"> "+msg;
         client.send(lastMessage);
     }
-
-    @Override
-    public String recieve() {
-        return "";
-    }
     @Override
     public String getAddress() {
         return address;

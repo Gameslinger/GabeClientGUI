@@ -11,14 +11,18 @@ package CLI.commands.frac;
  */
 public class Fraction {
 
-    private int a, b, c;
+    private int numerator, denominator, mixed;
 
     boolean isClear = false;
-
-    public Fraction(int a, int b) {
+    /**
+     * Fraction object
+     * @param numerator
+     * @param denominator
+     */
+    public Fraction(int numerator, int denominator) {
         //Test for division by zero here?
-        this.a = a;
-        this.b = b;
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     public static Fraction parseFrac(String str) {
@@ -54,45 +58,45 @@ public class Fraction {
     }
 
     public static Fraction addFrac(Fraction a, Fraction b) {
-        //(a*d)+(c*b)/b*d
-        return new Fraction((a.a * b.b) + (b.a * a.b), a.b * b.b);
+        //(numerator*d)+(mixed*denominator)/b*d
+        return new Fraction((a.numerator * b.denominator) + (b.numerator * a.denominator), a.denominator * b.denominator);
     }
 
     public static Fraction multFrac(Fraction a, Fraction b) {
-        return new Fraction(a.a * b.a, a.b * b.b);
+        return new Fraction(a.numerator * b.numerator, a.denominator * b.denominator);
     }
 
     public static Fraction divideFrac(Fraction a, Fraction b) {
-        return new Fraction(a.a * b.b, a.b * b.a);
+        return new Fraction(a.numerator * b.denominator, a.denominator * b.numerator);
     }
 
     public static Fraction subFrac(Fraction a, Fraction b) {
-        return new Fraction((a.a * b.b) - (b.a * a.b), a.b * b.b);
+        return new Fraction((a.numerator * b.denominator) - (b.numerator * a.denominator), a.denominator * b.denominator);
     }
 
     public Fraction reduce() {
-        int max = this.a > this.b ? this.a : this.b;
-        if(this.b==0)return this;
+        int max = this.numerator > this.denominator ? this.numerator : this.denominator;
+        if(this.denominator==0)return this;
         for (int i = max; i > 1; i--) {
-            if (this.a % i == 0 && this.b % i == 0) {
-                this.a /= i;
-                this.b /= i;
+            if (this.numerator % i == 0 && this.denominator % i == 0) {
+                this.numerator /= i;
+                this.denominator /= i;
             }
         }
 
-        while (a - b >= 0) {
-            a -= b;
-            c++;
+        while (numerator - denominator >= 0) {
+            numerator -= denominator;
+            mixed++;
         }
-        while (a + b <= 0) {
-            a += b;
-            c--;
+        while (numerator + denominator <= 0) {
+            numerator += denominator;
+            mixed--;
         }
-        if (b == 1) {
-            c += a;
+        if (denominator == 1) {
+            mixed += numerator;
             isClear = true;
         }
-        if (a == 0 || b == 0) {
+        if (numerator == 0 || denominator == 0) {
             isClear = true;
         }
         return this;
@@ -104,7 +108,7 @@ public class Fraction {
         Fraction frac2 = null;
         int start = 0, end = 0, pCount = 0;
         boolean hasOp = false, found = false;
-        int op = 0;
+        FracOp op = null;
         //divide str by ()
         for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) == '(') {
@@ -145,12 +149,12 @@ public class Fraction {
                     i++;
                 }
 
-                if (op == 0) {
+                if (op == null) {
                     frac1 = Fraction.parseFrac(line.substring(startFrac, i));
                 } else {
                     frac2 = Fraction.parseFrac(line.substring(startFrac, i));
                 }
-                if (frac1 != null && frac2 != null && op != 0) {
+                if (frac1 != null && frac2 != null && op != null) {
 
                     return exStr(Fraction.operate(op, frac1, frac2) + line.substring(i));
                 }
@@ -159,16 +163,16 @@ public class Fraction {
                 hasOp = true;
                 switch (line.charAt(i)) {
                     case '+':
-                        op = 1;
+                        op = FracOp.ADD;
                         break;
                     case '-':
-                        op = 2;
+                        op = FracOp.SUB;
                         break;
                     case '*':
-                        op = 3;
+                        op = FracOp.MULT;
                         break;
                     case '/':
-                        op = 4;
+                        op = FracOp.DIV;
                         break;
                     default:
                         hasOp = false;
@@ -179,25 +183,31 @@ public class Fraction {
 
         }
         //Return for if only frac
-        if (frac1 != null && op == 0 && frac2 == null) {
+        if (frac1 != null && op == null && frac2 == null) {
             return line;
         }
         //DO NOT COME HERE (I THINK) 
         return exStr(Fraction.operate(op, frac1, frac2).toString());
     }
-
-    public static Fraction operate(int selection, Fraction a, Fraction b) {
+    /**
+     * Performs an operation based upon Selected
+     * @param selection
+     * @param a
+     * @param b
+     * @return 
+     */
+    public static Fraction operate(FracOp selection, Fraction a, Fraction b) {
         switch (selection) {
-            case 1:
+            case ADD:
                 //add
                 return Fraction.addFrac(a, b);
-            case 2:
+            case SUB:
                 //Subtract
                 return Fraction.subFrac(a, b);
-            case 3:
+            case MULT:
                 //multiply
                 return Fraction.multFrac(a, b);
-            case 4:
+            case DIV:
                 //divide
                 return Fraction.divideFrac(a, b);
             default:
@@ -210,142 +220,31 @@ public class Fraction {
     public String toString() {
         //TODO Check sooner?
         if (isClear) {
-            return c + "";
+            return mixed + "";
         }
-        if (this.b == 0) {
+        if (this.denominator == 0) {
 
-            if (this.a == 0) {
+            if (this.numerator == 0) {
                 return "Undefined";
             }
 
             return "Indeterminant";
         }
-        if (c == 0) {
-            return a + "/" + b;
+        if (mixed == 0) {
+            return numerator + "/" + denominator;
         }
-        return c + "_" + this.a + "/" + this.b;
+        return mixed + "_" + this.numerator + "/" + this.denominator;
     }
 
-    public int getA() {
-        return a;
+    public int getNumerator() {
+        return numerator;
     }
 
-    public int getB() {
-        return b;
+    public int getDenominator() {
+        return denominator;
     }
-
+    
 }
-/*
-
- System.out.println(line);
- Fraction frac1 = null, frac2 = null;
- int start = 0, end = 0, pCount = 0;
- boolean hasOp=false, found = false;
- int op;
- int i;
-        
- for (i = 0; i < line.length(); i++) {
- //Split string if perintheses
- if (line.charAt(i) == '(') {
- found = true;
- if (pCount == 0) {
- start = i;
- }
- pCount++;
- } else if (line.charAt(i) == ')') {
- if (pCount == 1) {
- end = i;
- }
- pCount--;
- }
- if(){
-                    
- }
- //Get fraction and parse
- if(Character.isDigit(line.charAt(i))){
- boolean hasUnder=false,hasForward=false;
- int startFrac = i;
- while(Character.isDigit(line.charAt(i)) || line.charAt(i)=='/' || line.charAt(i)=='_' && line.charAt(i)!=' ' && i < line.length()){
- if(line.charAt(i)=='/'){
- if(hasForward){
- break;
- }
- }
- hasForward=true;
-                    
- if(line.charAt(i)=='_'){
- if(hasUnder){
- break;
- }
- hasUnder=true;
- }
- i++;
- }  
-                    
- if(!hasOp){
- frac1 = Fraction.parseFrac(line.substring(startFrac, i));
- }else{
- frac2 = Fraction.parseFrac(line.substring(startFrac, i));
- }
- //If not frac check if op:
- }else{
- hasOp = true;
- switch(line.charAt(i)){
- case '+':
- op = 1;
- break;
- case '-':
- op = 2;
- break;
- case '*':
- op = 3;
- break;
- case '/':
- op = 4;
- break;
- default:
- hasOp = false;
- }
- }
- //TODO: How to re-operate on all of equation? |(3+ |( |(5*3)|-|(4/2)|)| )|
- //If line contains '(' seperate line!
- if (line.charAt(i) == '(') {
- found = true;
- if (pCount == 0) {
- start = i;
- }
- pCount++;
- } else if (line.charAt(i) == ')') {
- if (pCount == 1) {
- end = i;
- }
- pCount--;
- }
-            
- }
-            
-        
-            
- if (!found) {
- return line;
- }
-            
-        
-
- Sample session?
- Please input a fraction in the form a/b
- >>5/6
- Please enter the other fraction:
- >>3/10
- ---------------
- a/b + c/d
- (a*d)+(c*b)/b*d
-
-
- Reducing:
- for num in range max([a,b]):
- if(a%num==0 && b%num==0):
- a/=num
- b/=num
-
- */
+ enum FracOp{
+ADD,SUB,MULT,DIV;
+}

@@ -66,11 +66,6 @@ final ListView<String> messages;
     }
     //lastMessage = msg;
     }
-
-    @Override
-    public String recieve() {
-        return "";
-    }
     @Override
     public String getAddress() {
         return address;

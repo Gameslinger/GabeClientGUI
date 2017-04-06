@@ -10,6 +10,14 @@ package CLI;
  * @author Gabe
  */
 public interface Nameable {
+    /**
+     * Sets name
+     * @param name 
+     */
     public void setName(String name);
+    /**
+     * Gets name
+     * @return 
+     */
     public String getName();
 }

@@ -14,7 +14,20 @@ import java.util.Map;
  * @author Gabe
  */
 public interface CommandList {
+    /**
+     * Returns a map of commands
+     * @return 
+     */
     public Map<String,ICommand> getMap();
+    /**
+     * Returns a list of commands
+     * @return 
+     */
     public List<ICommand> getList();
+    /**
+     * Processes strings and returns result
+     * @param str
+     * @return 
+     */
     public String scanString(String str);
 }

@@ -19,6 +19,14 @@ public class SpamThread implements Runnable{
     ICommunication icom;
     long delay;
     CommandList cli;
+    /**
+     * Constructs a SpamThread to Spam chat
+     * @param times
+     * @param delay
+     * @param message
+     * @param icom
+     * @param cli 
+     */
     public SpamThread(int times,long delay,String message, ICommunication icom,CommandList cli){
         this.times = times;
         this.message = message;

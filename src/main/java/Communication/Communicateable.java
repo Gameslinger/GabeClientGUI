@@ -10,5 +10,9 @@ package Communication;
  * @author Gabe
  */
 public interface Communicateable {
+    /**
+     * Returns communication object
+     * @return 
+     */
     public ICommunication getCom();
 }

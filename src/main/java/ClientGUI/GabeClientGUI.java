@@ -41,16 +41,16 @@ public class GabeClientGUI extends Application {
         
         RedisCom = new RadioButton("RedisCom");
         RedisCom.setToggleGroup(buttons);
-        RedisCom.setUserData(ComEnum.RedisCom);
+        RedisCom.setUserData(ComEnum.REDISCOM);
         RedisCom.setSelected(true);
         
         JsCom = new RadioButton("JsCom");
         JsCom.setToggleGroup(buttons);
-        JsCom.setUserData(ComEnum.JsCom);
+        JsCom.setUserData(ComEnum.JSCOM);
         
         MockCom = new RadioButton("MockCom");
         MockCom.setToggleGroup(buttons);
-        MockCom.setUserData(ComEnum.MockCom);
+        MockCom.setUserData(ComEnum.MOCKCOM);
         
         
         next.setOnAction(new EventHandler<ActionEvent>(){

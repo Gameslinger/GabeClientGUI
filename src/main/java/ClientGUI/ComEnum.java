@@ -10,5 +10,5 @@ package ClientGUI;
  * @author Gabe
  */
 public enum ComEnum {
-    RedisCom,JsCom,MockCom;
+    REDISCOM,JSCOM,MOCKCOM;
 }

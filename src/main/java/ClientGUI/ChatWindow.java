@@ -66,13 +66,13 @@ public class ChatWindow extends Chat implements Nameable, MessageList{
         this.comOp = comOp;
         //----------------------------
         switch(comOp){
-            case RedisCom:
+            case REDISCOM:
                 icom = new RedisCom(this,messages);
                 break;
-            case MockCom:
+            case MOCKCOM:
                 icom = new MockCom();
                 break;
-            case JsCom:
+            case JSCOM:
                 sendCode = new TextArea("//Put onSend Javascript code here\nclient.send(name+'>'+msg);");
                 recCode = new TextArea("//Put onRecieve Javascript code in here\nmessages.add(msg);");
                 codeAreas = new HBox();
@@ -133,7 +133,7 @@ public class ChatWindow extends Chat implements Nameable, MessageList{
         input.requestFocus();
         
         VBox vb = new VBox();
-        if(comOp==ComEnum.JsCom){
+        if(comOp==ComEnum.JSCOM){
             vb.getChildren().addAll(messages,codeAreas,input);
         }else{
         vb.getChildren().addAll(messages,input);

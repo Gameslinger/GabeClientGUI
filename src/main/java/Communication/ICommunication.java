@@ -11,8 +11,20 @@ package Communication;
  */
 
 public interface ICommunication {
+    /**
+     * Connects to redis server at address on channel
+     * @param address
+     * @param channel 
+     */
     public void connect(String address, String channel);
+    /**
+     * Sends msg to the server
+     * @param msg 
+     */
     public void send(String msg);
+    /**
+     * Returns address communications are sent to
+     * @return 
+     */
     public String getAddress();
-    public String recieve();
 }

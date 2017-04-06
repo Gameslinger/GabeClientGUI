@@ -14,15 +14,23 @@ import javafx.collections.ObservableList;
  */
 public abstract class Chat implements Communicateable, MessageList{
     String address;
+    
     @Override
     public abstract ICommunication getCom();
-
+    
     @Override
     public abstract ObservableList<String> getMessages();
-    
+    /**
+     * Returns connection address
+     * @return 
+     */
     public String getAddress(){
         return address;
     }
+    /**
+     * Sets Connection address
+     * @param address 
+     */
     public void setAddress(String address){
         this.address = address;
     }

@@ -25,15 +25,6 @@ public class MockCom implements ICommunication{
     }
 
     @Override
-    public String recieve() {
-        //Randomly get Message;
-        if(Math.random()>0.97){
-            return "Hello!";
-        }
-        return null;
-    }
-
-    @Override
     public String getAddress() {
         return address;
     }
